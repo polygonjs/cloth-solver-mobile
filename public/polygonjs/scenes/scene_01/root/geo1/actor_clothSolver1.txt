@@ -1,0 +1,181 @@
+// insert defines
+class CustomActorEvaluator extends ActorEvaluator {
+	// insert members
+
+	// /geo1/actor_clothSolver1/rayFromCursor1
+	v_POLY_rayFromCursor1_Ray = computed(() => globalsRayFromCursor());
+
+	// /geo1/actor_clothSolver1/GetIntersectionAttribute1
+	v_POLY_GetIntersectionAttribute1_val = computed(() =>
+		getIntersectionAttributeNumberNearest(this.v_POLY_onObjectPointerdown1_Intersection.value, "id", -1.0)
+	);
+
+	// /geo1/actor_clothSolver1/plane1
+	v_POLY_plane1_Plane = computed(() =>
+		planeSet(VAR__plane1_normal.set(0, 0, 1), this.v_POLY_constant2_val.value, VAR__plane1__1)
+	);
+
+	// /geo1/actor_clothSolver1/rayIntersectPlane1
+	v_POLY_rayIntersectPlane1_position = computed(() =>
+		rayIntersectPlane(this.v_POLY_rayFromCursor1_Ray.value, this.v_POLY_plane1_Plane.value, VAR__rayIntersectPlane1_)
+	);
+
+	// /geo1/actor_clothSolver1/null1
+	v_POLY_null1_out = computed(() => VAR__null1_in.copy(this.v_POLY_rayIntersectPlane1_position.value));
+
+	// /geo1/actor_clothSolver1/onTick1
+	v_POLY_onTick1_time = computed(() => globalsTime());
+	v_POLY_onTick1_delta = computed(() => globalsTimeDelta());
+
+	// /geo1/actor_clothSolver1/constant2
+	v_POLY_constant2_val = { value: -0.68 };
+
+	// /geo1/actor_clothSolver1/clothSolverStepSimulation1
+	v_POLY_clothSolverStepSimulation1_tSize = { value: null };
+	v_POLY_clothSolverStepSimulation1_tPosition0 = { value: null };
+	v_POLY_clothSolverStepSimulation1_tPosition1 = { value: null };
+	v_POLY_clothSolverStepSimulation1_tNormal = { value: null };
+	v_POLY_clothSolverStepSimulation1_tOriginalRT = { value: null };
+	v_POLY_clothSolverStepSimulation1_tViscositySpringT = { value: null };
+	v_POLY_clothSolverStepSimulation1_tPreviousRT0 = { value: null };
+	v_POLY_clothSolverStepSimulation1_tPreviousRT1 = { value: null };
+	v_POLY_clothSolverStepSimulation1_targetRT0 = { value: null };
+	v_POLY_clothSolverStepSimulation1_targetRT1 = { value: null };
+	v_POLY_clothSolverStepSimulation1_tNormalsRT = { value: null };
+	v_POLY_clothSolverStepSimulation1_tPositionRT0 = { value: null };
+	v_POLY_clothSolverStepSimulation1_tPositionRT1 = { value: null };
+	v_POLY_clothSolverStepSimulation1_tAdjacentsRT0 = { value: null };
+	v_POLY_clothSolverStepSimulation1_tAdjacentsRT1 = { value: null };
+	v_POLY_clothSolverStepSimulation1_tDistanceRT0 = { value: null };
+	v_POLY_clothSolverStepSimulation1_tDistanceRT1 = { value: null };
+	v_POLY_clothSolverStepSimulation1_integrationMat = { value: null };
+
+	// /geo1/actor_clothSolver1/onObjectPointerdown1
+	v_POLY_onObjectPointerdown1_Intersection = ref(null);
+
+	constructor(node, object3D) {
+		super(node, object3D);
+		// insert after constructor
+
+		// /geo1/actor_clothSolver1/onObjectPointerdown1
+		addObjectToObjectPointerdownCheck(this.object3D, this, {
+			priority: { blockObjectsBehind: true, skipIfObjectsInFront: false },
+			cpu: {
+				traverseChildren: false,
+				pointsThreshold: 0.1,
+				lineThreshold: 0.1,
+				intersectionRef: this.v_POLY_onObjectPointerdown1_Intersection,
+			},
+			pointerdown: { callback: this.onObjectPointerdown1.bind(this) },
+			config: { button: { left: true, middle: true, right: true }, modifier: { ctrl: 1.0, shift: 1.0, alt: 1.0 } },
+		});
+
+		// /geo1/actor_clothSolver1/onPointerup1
+		addObjectToPointerupCheck(this.object3D, this, { pointerup: { callback: this.onPointerup1.bind(this) } });
+	}
+	// insert body
+
+	onObjectPointerdown() {
+		this.onObjectPointerdown1();
+	}
+	onScenePause() {
+		this.onScenePause1();
+	}
+	onTick() {
+		this.onTick1();
+	}
+	onPointerup() {
+		this.onPointerup1();
+	}
+	// /geo1/actor_clothSolver1/onObjectPointerdown1
+	onObjectPointerdown1() {
+		this.createClothConstraint1(0);
+	}
+
+	// /geo1/actor_clothSolver1/onScenePause1
+	onScenePause1() {
+		this.clothSolverReset1(0);
+	}
+
+	// /geo1/actor_clothSolver1/onTick1
+	onTick1() {
+		this.clothSolverStepSimulation1(0);
+		this.anyTrigger1(0);
+	}
+
+	// /geo1/actor_clothSolver1/onPointerup1
+	onPointerup1() {
+		this.deleteClothConstraint1(0);
+	}
+
+	// /geo1/actor_clothSolver1/clothSolverReset1
+	clothSolverReset1() {
+		clothSolverReset(this.object3D);
+	}
+
+	// /geo1/actor_clothSolver1/clothSolverStepSimulation1
+	clothSolverStepSimulation1() {
+		clothSolverStepSimulation(this.object3D, 40.0, 0.1, 0.1, 1.0, {
+			tSize: this.v_POLY_clothSolverStepSimulation1_tSize,
+			tPosition0: this.v_POLY_clothSolverStepSimulation1_tPosition0,
+			tPosition1: this.v_POLY_clothSolverStepSimulation1_tPosition1,
+			tNormal: this.v_POLY_clothSolverStepSimulation1_tNormal,
+			tOriginalRT: this.v_POLY_clothSolverStepSimulation1_tOriginalRT,
+			tViscositySpringT: this.v_POLY_clothSolverStepSimulation1_tViscositySpringT,
+			tPreviousRT0: this.v_POLY_clothSolverStepSimulation1_tPreviousRT0,
+			tPreviousRT1: this.v_POLY_clothSolverStepSimulation1_tPreviousRT1,
+			tTargetRT0: this.v_POLY_clothSolverStepSimulation1_targetRT0,
+			tTargetRT1: this.v_POLY_clothSolverStepSimulation1_targetRT1,
+			tNormalsRT: this.v_POLY_clothSolverStepSimulation1_tNormalsRT,
+			tPositionRT0: this.v_POLY_clothSolverStepSimulation1_tPositionRT0,
+			tPositionRT1: this.v_POLY_clothSolverStepSimulation1_tPositionRT1,
+			tAdjacentsRT0: this.v_POLY_clothSolverStepSimulation1_tAdjacentsRT0,
+			tAdjacentsRT1: this.v_POLY_clothSolverStepSimulation1_tAdjacentsRT1,
+			tDistanceRT0: this.v_POLY_clothSolverStepSimulation1_tDistanceRT0,
+			tDistanceRT1: this.v_POLY_clothSolverStepSimulation1_tDistanceRT1,
+			integrationMat: this.v_POLY_clothSolverStepSimulation1_integrationMat,
+		});
+		this.clothSolverUpdateMaterial1(0);
+	}
+
+	// /geo1/actor_clothSolver1/clothSolverUpdateMaterial1
+	clothSolverUpdateMaterial1() {
+		clothSolverUpdateMaterial(
+			this.object3D.material,
+			"tSize",
+			"tPosition0",
+			"tPosition1",
+			"tNormal",
+			this.v_POLY_clothSolverStepSimulation1_tSize.value,
+			this.v_POLY_clothSolverStepSimulation1_tPosition0.value,
+			this.v_POLY_clothSolverStepSimulation1_tPosition1.value,
+			this.v_POLY_clothSolverStepSimulation1_tNormal.value
+		);
+	}
+
+	// /geo1/actor_clothSolver1/anyTrigger1
+	anyTrigger1() {
+		this.clothSolverSetSelectedVertexPosition1(0);
+	}
+
+	// /geo1/actor_clothSolver1/clothSolverSetSelectedVertexPosition1
+	clothSolverSetSelectedVertexPosition1() {
+		clothConstraintSetPosition(
+			this.object3D,
+			VAR__clothSolverSetSelectedVertexPosition1_position.copy(this.v_POLY_null1_out.value),
+			1.0
+		);
+	}
+
+	// /geo1/actor_clothSolver1/createClothConstraint1
+	createClothConstraint1() {
+		clothCreateConstraint(this.object3D, this.v_POLY_GetIntersectionAttribute1_val.value);
+		this.anyTrigger1(1);
+	}
+
+	// /geo1/actor_clothSolver1/deleteClothConstraint1
+	deleteClothConstraint1() {
+		clothDeleteConstraint(this.object3D);
+	}
+}
+return CustomActorEvaluator;

@@ -1,0 +1,55 @@
+{
+	"type": "clothSolver",
+	"nodes": {
+		"globals1": {
+			"type": "globals"
+		},
+		"output1": {
+			"type": "output",
+			"inputs": [
+				{
+					"index": 0,
+					"inputName": "position",
+					"node": "globals1",
+					"output": "position"
+				}
+			]
+		}
+	},
+	"inputs": ["actor_clothSolver1"],
+	"persisted_config": {
+		"texture_allocations": {
+			"writable": [
+				{
+					"position": [
+						{
+							"name": "position",
+							"size": 3,
+							"nodes": ["/geo1/clothSolver1/output1", "/geo1/clothSolver1/globals1"]
+						}
+					]
+				}
+			],
+			"readonly": []
+		},
+		"param_uniform_pairs": [],
+		"uniforms_owner": {
+			"metadata": {
+				"version": 4.6,
+				"type": "Material",
+				"generator": "Material.toJSON"
+			},
+			"uuid": "/geo1/clothSolver1-main",
+			"type": "ShaderMaterial",
+			"blendColor": 0,
+			"forceSinglePass": true,
+			"fog": false,
+			"glslVersion": null,
+			"uniforms": {},
+			"vertexShader": "void main() {\n\tgl_Position = projectionMatrix * modelViewMatrix * vec4( position, 1.0 );\n}",
+			"fragmentShader": "void main() {\n\tgl_FragColor = vec4( 1.0, 0.0, 0.0, 1.0 );\n}",
+			"lights": false,
+			"clipping": false
+		}
+	}
+}

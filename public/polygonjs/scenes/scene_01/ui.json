@@ -1,0 +1,301 @@
+{
+	"nodes": {
+		"geo1": {
+			"pos": [-150, -250],
+			"selection": [
+				"icosahedron1",
+				"clothSolver1",
+				"clothPrepare1",
+				"material1",
+				"MAT",
+				"actor_clothSolver1",
+				"restAttributes1",
+				"fileOBJ1",
+				"hierarchy1",
+				"transform1",
+				"objectProperties1",
+				"switch_CHARACTER"
+			],
+			"nodes": {
+				"icosahedron1": {
+					"pos": [-50, -900]
+				},
+				"clothSolver1": {
+					"pos": [50, 650],
+					"comment": "This is the solver. You can add more nodes inside it to add specific movements in area of the input geometry. This can be useful for more precise tweaking, like vibrations.",
+					"nodes": {
+						"globals1": {
+							"pos": [-400, 0]
+						},
+						"output1": {
+							"pos": [200, 0]
+						}
+					}
+				},
+				"clothPrepare1": {
+					"pos": [50, 150],
+					"comment": "the clothPrepare node adds some attributes, like id, to your geometry."
+				},
+				"material1": {
+					"pos": [50, 950],
+					"comment": "This assigns the [material](../MAT/meshPhysical_CLOTH), which is necessary to display the result of the simulation."
+				},
+				"MAT": {
+					"pos": [-150, 650],
+					"nodes": {
+						"meshPhysical_CLOTH": {
+							"pos": [0, 0],
+							"nodes": {
+								"globals1": {
+									"pos": [-400, 0]
+								},
+								"output1": {
+									"pos": [400, 0]
+								},
+								"clothSolverPosition1": {
+									"pos": [100, 0]
+								},
+								"attribute1": {
+									"pos": [-100, 0]
+								},
+								"attribute2": {
+									"pos": [-900, 550]
+								},
+								"mix1": {
+									"pos": [250, 300]
+								},
+								"constant1": {
+									"pos": [-100, 300]
+								},
+								"constant2": {
+									"pos": [-100, 200]
+								},
+								"vec3ToFloat1": {
+									"pos": [-750, 450]
+								},
+								"floatToVec2_1": {
+									"pos": [-550, 450]
+								},
+								"vec3ToFloat2": {
+									"pos": [-750, 650]
+								},
+								"floatToVec2_2": {
+									"pos": [-550, 650]
+								},
+								"grid1": {
+									"pos": [-250, 500]
+								},
+								"constant3": {
+									"pos": [-550, 800]
+								},
+								"grid2": {
+									"pos": [-250, 650]
+								},
+								"mult2": {
+									"pos": [-100, 550]
+								}
+							}
+						}
+					}
+				},
+				"actor_clothSolver1": {
+					"pos": [50, 400],
+					"comment": "most of the logic of how the cloth solver will behave is inside [this node](.)",
+					"selection": ["deleteClothConstraint1"],
+					"nodes": {
+						"onScenePause1": {
+							"pos": [-100, -300]
+						},
+						"onTick1": {
+							"pos": [-100, 0]
+						},
+						"clothSolverReset1": {
+							"pos": [100, -300],
+							"comment": "when the scene pauses, the cloth solver will reset. Unplug the onScenePause node if you do not want this behavior."
+						},
+						"clothSolverStepSimulation1": {
+							"pos": [100, 0],
+							"comment": "this needs to be triggered every frame, using the onTick node, in order to simulate the cloth"
+						},
+						"clothSolverUpdateMaterial1": {
+							"pos": [450, 0],
+							"comment": "The result of the simulation is stored in textures. This node makes sure that the material is given those textures, so that we can display the result of the sim."
+						},
+						"onObjectPointerdown1": {
+							"pos": [-600, 650],
+							"comment": "when we click on the object, we create a constraint used by the cloth solver.\\n\\nThe constraint is created using the `id` attribute found under the cursor."
+						},
+						"GetIntersectionAttribute1": {
+							"pos": [-300, 800]
+						},
+						"clothSolverSetSelectedVertexPosition1": {
+							"pos": [1400, 400],
+							"comment": "Here we set the position of the constraint created by the nodes on the left.\\nThe position is set by sending a ray from the camera to the cursor, and seeing where it intersects on a plane."
+						},
+						"constant2": {
+							"pos": [550, 900]
+						},
+						"null1": {
+							"pos": [1150, 800]
+						},
+						"plane1": {
+							"pos": [750, 900]
+						},
+						"rayFromCursor1": {
+							"pos": [750, 750]
+						},
+						"rayIntersectPlane1": {
+							"pos": [900, 800]
+						},
+						"anyTrigger1": {
+							"pos": [100, 400]
+						},
+						"onPointerup1": {
+							"pos": [-600, 1050],
+							"comment": "when the user releases the cursor, we delete the contraint"
+						},
+						"createClothConstraint1": {
+							"pos": [-100, 650]
+						},
+						"deleteClothConstraint1": {
+							"pos": [-50, 1050]
+						}
+					}
+				},
+				"restAttributes1": {
+					"pos": [50, -50],
+					"comment": "the rest attribute is only used in the [material](../MAT/meshPhysical_CLOTH), and is not necessary for the simulation itself."
+				},
+				"fileOBJ1": {
+					"pos": [250, -1150],
+					"comment": "the geometry imported in this node has been created with Houdini. You can use any modeling tool in Houdini to create your character, as long as you make sure to use a remesh node at the end, to have evenly spread out triangles.\\n\\nYou can look at [the houdini scene used for this character](https://github.com/polygonjs/polygonjs-assets/tree/master/houdini/scenes)"
+				},
+				"hierarchy1": {
+					"pos": [250, -800]
+				},
+				"transform1": {
+					"pos": [250, -700]
+				},
+				"objectProperties1": {
+					"pos": [250, -600]
+				},
+				"switch_CHARACTER": {
+					"pos": [50, -450],
+					"comment": "The switch allows to test different inputs for the cloth solver.\\n- left input is a simple icosahedron (which is like a sphere, but with the triangles laid out evenly, which is necessary for the cloth solver)\\n- right input is an imported geometry, created with Houdini"
+				}
+			}
+		},
+		"ground": {
+			"pos": [-150, -350],
+			"nodes": {
+				"material1": {
+					"pos": [0, 300]
+				},
+				"MAT": {
+					"pos": [-200, 300],
+					"nodes": {
+						"meshStandardBuilder1": {
+							"pos": [0, 200],
+							"nodes": {
+								"globals1": {
+									"pos": [-450, 0]
+								},
+								"output1": {
+									"pos": [400, 0]
+								},
+								"vec3ToFloat1": {
+									"pos": [-200, 200]
+								},
+								"floatToVec2_1": {
+									"pos": [-100, 200]
+								},
+								"checkers1": {
+									"pos": [50, 200]
+								},
+								"mix1": {
+									"pos": [250, 0]
+								},
+								"constant1": {
+									"pos": [50, -150]
+								},
+								"constant2": {
+									"pos": [0, 0]
+								}
+							}
+						}
+					}
+				},
+				"box1": {
+					"pos": [0, 100]
+				}
+			}
+		},
+		"lights": {
+			"pos": [-150, -150],
+			"selection": ["hemisphereLight1"],
+			"nodes": {
+				"hemisphereLight1": {
+					"pos": [50, -50]
+				},
+				"spotLight1": {
+					"pos": [300, -50]
+				},
+				"polarTransform1": {
+					"pos": [300, 150]
+				},
+				"merge1": {
+					"pos": [100, 300]
+				}
+			}
+		},
+		"cameras": {
+			"pos": [-150, -50],
+			"selection": ["polarTransform1"],
+			"nodes": {
+				"cameraControls1": {
+					"pos": [0, 150],
+					"nodes": {
+						"cameraOrbitControls1": {
+							"pos": [0, 0]
+						}
+					}
+				},
+				"perspectiveCamera_DEBUG": {
+					"pos": [0, -50]
+				},
+				"perspectiveCamera_MAIN": {
+					"pos": [350, -50]
+				},
+				"polarTransform1": {
+					"pos": [350, 150]
+				},
+				"merge1": {
+					"pos": [150, 350]
+				}
+			}
+		},
+		"text": {
+			"pos": [0, -250],
+			"selection": ["text1"],
+			"nodes": {
+				"text1": {
+					"pos": [-200, -100]
+				},
+				"transform1": {
+					"pos": [-200, 50]
+				},
+				"material1": {
+					"pos": [-200, 200]
+				},
+				"MAT": {
+					"pos": [-400, 200],
+					"nodes": {
+						"meshBasic1": {
+							"pos": [-150, 0]
+						}
+					}
+				}
+			}
+		}
+	}
+}

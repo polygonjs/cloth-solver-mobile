@@ -1,0 +1,692 @@
+{
+	"type": "meshPhysicalBuilder",
+	"nodes": {
+		"globals1": {
+			"type": "globals"
+		},
+		"output1": {
+			"type": "output",
+			"inputs": [
+				{
+					"index": 0,
+					"inputName": "position",
+					"node": "clothSolverPosition1",
+					"output": "position"
+				},
+				null,
+				{
+					"index": 2,
+					"inputName": "color",
+					"node": "mix1",
+					"output": "mix"
+				}
+			]
+		},
+		"clothSolverPosition1": {
+			"type": "clothSolverPosition",
+			"params": {
+				"id": {
+					"overriden_options": {}
+				}
+			},
+			"inputs": [
+				{
+					"index": 0,
+					"inputName": "id",
+					"node": "attribute1",
+					"output": "val"
+				}
+			]
+		},
+		"attribute1": {
+			"type": "attribute",
+			"params": {
+				"name": "id"
+			},
+			"maxInputsCount": 0,
+			"connection_points": {
+				"in": [],
+				"out": [
+					{
+						"name": "val",
+						"type": "float"
+					}
+				]
+			}
+		},
+		"attribute2": {
+			"type": "attribute",
+			"params": {
+				"name": "restP",
+				"type": 2
+			},
+			"connection_points": {
+				"in": [],
+				"out": [
+					{
+						"name": "val",
+						"type": "vec3"
+					}
+				]
+			}
+		},
+		"mix1": {
+			"type": "mix",
+			"params": {
+				"value0": {
+					"type": "vector3",
+					"default_value": [0, 0, 0],
+					"options": {
+						"spare": true,
+						"editable": false,
+						"computeOnDirty": true,
+						"dependentOnFoundParam": false
+					}
+				},
+				"value1": {
+					"type": "vector3",
+					"default_value": [0, 0, 0],
+					"options": {
+						"spare": true,
+						"editable": false,
+						"computeOnDirty": true,
+						"dependentOnFoundParam": false
+					},
+					"overriden_options": {}
+				},
+				"blend": {
+					"type": "float",
+					"default_value": 0.5,
+					"options": {
+						"spare": true,
+						"editable": false,
+						"computeOnDirty": true,
+						"dependentOnFoundParam": false
+					},
+					"overriden_options": {}
+				}
+			},
+			"inputs": [
+				{
+					"index": 0,
+					"inputName": "value0",
+					"node": "constant2",
+					"output": "val"
+				},
+				{
+					"index": 1,
+					"inputName": "value1",
+					"node": "constant1",
+					"output": "val"
+				},
+				{
+					"index": 2,
+					"inputName": "blend",
+					"node": "mult2",
+					"output": "product"
+				}
+			],
+			"connection_points": {
+				"in": [
+					{
+						"name": "value0",
+						"type": "vec3"
+					},
+					{
+						"name": "value1",
+						"type": "vec3"
+					},
+					{
+						"name": "blend",
+						"type": "float"
+					}
+				],
+				"out": [
+					{
+						"name": "mix",
+						"type": "vec3"
+					}
+				]
+			}
+		},
+		"constant1": {
+			"type": "constant",
+			"params": {
+				"type": 4,
+				"color": [1, 1, 1],
+				"asColor": true
+			},
+			"connection_points": {
+				"in": [],
+				"out": [
+					{
+						"name": "val",
+						"type": "vec3"
+					}
+				]
+			}
+		},
+		"constant2": {
+			"type": "constant",
+			"params": {
+				"type": 4,
+				"color": [0.07036009568874305, 0.5906188409113381, 0.06662593863608139],
+				"asColor": true
+			},
+			"connection_points": {
+				"in": [],
+				"out": [
+					{
+						"name": "val",
+						"type": "vec3"
+					}
+				]
+			}
+		},
+		"vec3ToFloat1": {
+			"type": "vec3ToFloat",
+			"params": {
+				"vec": {
+					"overriden_options": {}
+				}
+			},
+			"inputs": [
+				{
+					"index": 0,
+					"inputName": "vec",
+					"node": "attribute2",
+					"output": "val"
+				}
+			]
+		},
+		"floatToVec2_1": {
+			"type": "floatToVec2",
+			"params": {
+				"x": {
+					"overriden_options": {}
+				},
+				"y": {
+					"overriden_options": {}
+				}
+			},
+			"inputs": [
+				{
+					"index": 0,
+					"inputName": "x",
+					"node": "vec3ToFloat1",
+					"output": "y"
+				},
+				{
+					"index": 1,
+					"inputName": "y",
+					"node": "vec3ToFloat1",
+					"output": "z"
+				}
+			]
+		},
+		"vec3ToFloat2": {
+			"type": "vec3ToFloat",
+			"params": {
+				"vec": {
+					"overriden_options": {}
+				}
+			},
+			"inputs": [
+				{
+					"index": 0,
+					"inputName": "vec",
+					"node": "attribute2",
+					"output": "val"
+				}
+			]
+		},
+		"floatToVec2_2": {
+			"type": "floatToVec2",
+			"params": {
+				"x": {
+					"overriden_options": {}
+				},
+				"y": {
+					"overriden_options": {}
+				}
+			},
+			"inputs": [
+				{
+					"index": 0,
+					"inputName": "x",
+					"node": "vec3ToFloat2",
+					"output": "x"
+				},
+				{
+					"index": 1,
+					"inputName": "y",
+					"node": "vec3ToFloat2",
+					"output": "y"
+				}
+			]
+		},
+		"grid1": {
+			"type": "grid",
+			"params": {
+				"uv": {
+					"overriden_options": {}
+				},
+				"lineWidth": {
+					"overriden_options": {}
+				},
+				"freq": {
+					"overriden_options": {}
+				},
+				"freqMult": {
+					"raw_input": 5.9,
+					"overriden_options": {}
+				}
+			},
+			"inputs": [
+				{
+					"index": 0,
+					"inputName": "uv",
+					"node": "floatToVec2_1",
+					"output": "vec2"
+				},
+				null,
+				null,
+				{
+					"index": 3,
+					"inputName": "freqMult",
+					"node": "constant3",
+					"output": "val"
+				}
+			]
+		},
+		"constant3": {
+			"type": "constant",
+			"params": {
+				"float": 5
+			},
+			"maxInputsCount": 0,
+			"connection_points": {
+				"in": [],
+				"out": [
+					{
+						"name": "val",
+						"type": "float"
+					}
+				]
+			}
+		},
+		"grid2": {
+			"type": "grid",
+			"params": {
+				"uv": {
+					"overriden_options": {}
+				},
+				"lineWidth": {
+					"overriden_options": {}
+				},
+				"freq": {
+					"overriden_options": {}
+				},
+				"freqMult": {
+					"raw_input": 5.9,
+					"overriden_options": {}
+				}
+			},
+			"inputs": [
+				{
+					"index": 0,
+					"inputName": "uv",
+					"node": "floatToVec2_2",
+					"output": "vec2"
+				},
+				null,
+				null,
+				{
+					"index": 3,
+					"inputName": "freqMult",
+					"node": "constant3",
+					"output": "val"
+				}
+			]
+		},
+		"mult2": {
+			"type": "mult",
+			"params": {
+				"mult0": {
+					"type": "float",
+					"default_value": 1,
+					"options": {
+						"spare": true,
+						"editable": false,
+						"computeOnDirty": true,
+						"dependentOnFoundParam": false
+					}
+				},
+				"mult1": {
+					"type": "float",
+					"default_value": 1,
+					"options": {
+						"spare": true,
+						"editable": false,
+						"computeOnDirty": true,
+						"dependentOnFoundParam": false
+					}
+				},
+				"mult2": {
+					"type": "float",
+					"default_value": 1,
+					"options": {
+						"spare": true,
+						"editable": true,
+						"computeOnDirty": true,
+						"dependentOnFoundParam": false
+					}
+				}
+			},
+			"maxInputsCount": 3,
+			"inputs": [
+				{
+					"index": 0,
+					"inputName": "mult0",
+					"node": "grid1",
+					"output": "grid"
+				},
+				{
+					"index": 1,
+					"inputName": "mult1",
+					"node": "grid2",
+					"output": "grid"
+				}
+			],
+			"connection_points": {
+				"in": [
+					{
+						"name": "mult0",
+						"type": "float"
+					},
+					{
+						"name": "mult1",
+						"type": "float"
+					},
+					{
+						"name": "mult2",
+						"type": "float"
+					}
+				],
+				"out": [
+					{
+						"name": "product",
+						"type": "float"
+					}
+				]
+			}
+		}
+	},
+	"params": {
+		"tSize": {
+			"type": "vector2",
+			"default_value": [1, 1],
+			"options": {
+				"spare": true,
+				"computeOnDirty": true,
+				"cook": false,
+				"dependentOnFoundNode": true
+			},
+			"overriden_options": {
+				"callback": "{}"
+			}
+		},
+		"tPosition0": {
+			"type": "node_path",
+			"default_value": "",
+			"options": {
+				"spare": true,
+				"computeOnDirty": true,
+				"cook": false,
+				"dependentOnFoundNode": true,
+				"nodeSelection": {
+					"context": "cop"
+				}
+			},
+			"overriden_options": {
+				"callback": "{}"
+			}
+		},
+		"tPosition1": {
+			"type": "node_path",
+			"default_value": "",
+			"options": {
+				"spare": true,
+				"computeOnDirty": true,
+				"cook": false,
+				"dependentOnFoundNode": true,
+				"nodeSelection": {
+					"context": "cop"
+				}
+			},
+			"overriden_options": {
+				"callback": "{}"
+			}
+		},
+		"tNormal": {
+			"type": "node_path",
+			"default_value": "",
+			"options": {
+				"spare": true,
+				"computeOnDirty": true,
+				"cook": false,
+				"dependentOnFoundNode": true,
+				"nodeSelection": {
+					"context": "cop"
+				}
+			},
+			"overriden_options": {
+				"callback": "{}"
+			}
+		}
+	},
+	"persisted_config": {
+		"material": {
+			"metadata": {
+				"version": 4.6,
+				"type": "Material",
+				"generator": "Material.toJSON"
+			},
+			"uuid": "/geo1/MAT/meshPhysical_CLOTH-main",
+			"type": "MeshPhysicalMaterial",
+			"color": 16777215,
+			"roughness": 1,
+			"metalness": 0,
+			"sheen": 0,
+			"sheenColor": 0,
+			"sheenRoughness": 1,
+			"emissive": 0,
+			"specularIntensity": 1,
+			"specularColor": 16777215,
+			"clearcoat": 0,
+			"clearcoatRoughness": 0,
+			"iridescence": 0,
+			"iridescenceIOR": 1.3,
+			"iridescenceThicknessRange": [100, 400],
+			"anisotropy": 0,
+			"anisotropyRotation": 0,
+			"envMapIntensity": 1,
+			"reflectivity": 0.49999999999999983,
+			"transmission": 0,
+			"thickness": 0.01,
+			"attenuationDistance": 100,
+			"attenuationColor": 16777215,
+			"blendColor": 0,
+			"fog": false
+		},
+		"onBeforeCompileDataJSONWithoutShaders": {
+			"paramConfigs": [
+				{
+					"type": "vector2",
+					"name": "tSize",
+					"defaultValue": [1, 1],
+					"uniformName": "v_POLY_param_tSize"
+				},
+				{
+					"type": "node_path",
+					"name": "tPosition0",
+					"defaultValue": "",
+					"uniformName": "v_POLY_texture_tPosition0"
+				},
+				{
+					"type": "node_path",
+					"name": "tPosition1",
+					"defaultValue": "",
+					"uniformName": "v_POLY_texture_tPosition1"
+				},
+				{
+					"type": "node_path",
+					"name": "tNormal",
+					"defaultValue": "",
+					"uniformName": "v_POLY_texture_tNormal"
+				}
+			],
+			"timeDependent": false,
+			"resolutionDependent": false,
+			"raymarchingLightsWorldCoordsDependent": false
+		},
+		"customMaterials": {
+			"customDepthMaterial": {
+				"material": {
+					"metadata": {
+						"version": 4.6,
+						"type": "Material",
+						"generator": "Material.toJSON"
+					},
+					"uuid": "/geo1/MAT/meshPhysical_CLOTH-customDepthMaterial",
+					"type": "MeshDepthMaterial",
+					"name": "customDepthMaterial",
+					"side": 1,
+					"blendColor": 0,
+					"forceSinglePass": true,
+					"depthPacking": 3201
+				},
+				"onBeforeCompileDataJSONWithoutShaders": {
+					"paramConfigs": [
+						{
+							"type": "vector2",
+							"name": "tSize",
+							"defaultValue": [1, 1],
+							"uniformName": "v_POLY_param_tSize"
+						},
+						{
+							"type": "node_path",
+							"name": "tPosition0",
+							"defaultValue": "",
+							"uniformName": "v_POLY_texture_tPosition0"
+						},
+						{
+							"type": "node_path",
+							"name": "tPosition1",
+							"defaultValue": "",
+							"uniformName": "v_POLY_texture_tPosition1"
+						},
+						{
+							"type": "node_path",
+							"name": "tNormal",
+							"defaultValue": "",
+							"uniformName": "v_POLY_texture_tNormal"
+						}
+					],
+					"timeDependent": false,
+					"resolutionDependent": false,
+					"raymarchingLightsWorldCoordsDependent": false
+				}
+			},
+			"customDistanceMaterial": {
+				"material": {
+					"metadata": {
+						"version": 4.6,
+						"type": "Material",
+						"generator": "Material.toJSON"
+					},
+					"uuid": "/geo1/MAT/meshPhysical_CLOTH-customDistanceMaterial",
+					"type": "MeshDistanceMaterial",
+					"name": "customDistanceMaterial",
+					"blendColor": 0
+				},
+				"onBeforeCompileDataJSONWithoutShaders": {
+					"paramConfigs": [
+						{
+							"type": "vector2",
+							"name": "tSize",
+							"defaultValue": [1, 1],
+							"uniformName": "v_POLY_param_tSize"
+						},
+						{
+							"type": "node_path",
+							"name": "tPosition0",
+							"defaultValue": "",
+							"uniformName": "v_POLY_texture_tPosition0"
+						},
+						{
+							"type": "node_path",
+							"name": "tPosition1",
+							"defaultValue": "",
+							"uniformName": "v_POLY_texture_tPosition1"
+						},
+						{
+							"type": "node_path",
+							"name": "tNormal",
+							"defaultValue": "",
+							"uniformName": "v_POLY_texture_tNormal"
+						}
+					],
+					"timeDependent": false,
+					"resolutionDependent": false,
+					"raymarchingLightsWorldCoordsDependent": false
+				}
+			},
+			"customDepthDOFMaterial": {
+				"material": {
+					"metadata": {
+						"version": 4.6,
+						"type": "Material",
+						"generator": "Material.toJSON"
+					},
+					"uuid": "/geo1/MAT/meshPhysical_CLOTH-customDepthDOFMaterial",
+					"type": "MeshDepthMaterial",
+					"name": "customDepthDOFMaterial",
+					"blendColor": 0,
+					"depthPacking": 3200
+				},
+				"onBeforeCompileDataJSONWithoutShaders": {
+					"paramConfigs": [
+						{
+							"type": "vector2",
+							"name": "tSize",
+							"defaultValue": [1, 1],
+							"uniformName": "v_POLY_param_tSize"
+						},
+						{
+							"type": "node_path",
+							"name": "tPosition0",
+							"defaultValue": "",
+							"uniformName": "v_POLY_texture_tPosition0"
+						},
+						{
+							"type": "node_path",
+							"name": "tPosition1",
+							"defaultValue": "",
+							"uniformName": "v_POLY_texture_tPosition1"
+						},
+						{
+							"type": "node_path",
+							"name": "tNormal",
+							"defaultValue": "",
+							"uniformName": "v_POLY_texture_tNormal"
+						}
+					],
+					"timeDependent": false,
+					"resolutionDependent": false,
+					"raymarchingLightsWorldCoordsDependent": false
+				}
+			}
+		}
+	}
+}

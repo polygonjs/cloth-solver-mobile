@@ -1,0 +1,427 @@
+{
+	"type": "actor",
+	"nodes": {
+		"onScenePause1": {
+			"type": "onScenePause"
+		},
+		"onTick1": {
+			"type": "onTick"
+		},
+		"clothSolverReset1": {
+			"type": "clothSolverReset",
+			"inputs": [
+				{
+					"index": 0,
+					"inputName": "trigger",
+					"node": "onScenePause1",
+					"output": "trigger"
+				}
+			]
+		},
+		"clothSolverStepSimulation1": {
+			"type": "clothSolverStepSimulation",
+			"maxInputsCount": 6,
+			"inputs": [
+				{
+					"index": 0,
+					"inputName": "trigger",
+					"node": "onTick1",
+					"output": "trigger"
+				}
+			]
+		},
+		"clothSolverUpdateMaterial1": {
+			"type": "clothSolverUpdateMaterial",
+			"maxInputsCount": 10,
+			"inputs": [
+				{
+					"index": 0,
+					"inputName": "trigger",
+					"node": "clothSolverStepSimulation1",
+					"output": "trigger"
+				},
+				null,
+				{
+					"index": 2,
+					"inputName": "tSize",
+					"node": "clothSolverStepSimulation1",
+					"output": "tSize"
+				},
+				{
+					"index": 3,
+					"inputName": "tPosition0",
+					"node": "clothSolverStepSimulation1",
+					"output": "tPosition0"
+				},
+				{
+					"index": 4,
+					"inputName": "tPosition1",
+					"node": "clothSolverStepSimulation1",
+					"output": "tPosition1"
+				},
+				{
+					"index": 5,
+					"inputName": "tNormal",
+					"node": "clothSolverStepSimulation1",
+					"output": "tNormal"
+				}
+			]
+		},
+		"onObjectPointerdown1": {
+			"type": "onObjectPointerdown",
+			"params": {
+				"traverseChildren": false
+			},
+			"maxInputsCount": 10
+		},
+		"GetIntersectionAttribute1": {
+			"type": "getIntersectionAttribute",
+			"params": {
+				"type": 3,
+				"interpolated": false,
+				"attribName": {
+					"type": "string",
+					"default_value": "",
+					"options": {
+						"spare": true,
+						"editable": true,
+						"computeOnDirty": true,
+						"dependentOnFoundParam": false
+					},
+					"raw_input": "id"
+				},
+				"notFoundValue": {
+					"type": "integer",
+					"default_value": -1,
+					"options": {
+						"spare": true,
+						"editable": true,
+						"computeOnDirty": true,
+						"dependentOnFoundParam": false
+					}
+				}
+			},
+			"maxInputsCount": 3,
+			"inputs": [
+				{
+					"index": 0,
+					"inputName": "Intersection",
+					"node": "onObjectPointerdown1",
+					"output": "Intersection"
+				}
+			],
+			"connection_points": {
+				"in": [
+					{
+						"name": "Intersection",
+						"type": "Intersection",
+						"isArray": false
+					},
+					{
+						"name": "attribName",
+						"type": "string",
+						"isArray": false
+					},
+					{
+						"name": "notFoundValue",
+						"type": "int",
+						"isArray": false
+					}
+				],
+				"out": [
+					{
+						"name": "val",
+						"type": "int",
+						"isArray": false
+					}
+				]
+			}
+		},
+		"clothSolverSetSelectedVertexPosition1": {
+			"type": "setClothConstraintPosition",
+			"params": {
+				"position": {
+					"overriden_options": {}
+				},
+				"lerp": {
+					"overriden_options": {}
+				}
+			},
+			"maxInputsCount": 4,
+			"inputs": [
+				{
+					"index": 0,
+					"inputName": "trigger",
+					"node": "anyTrigger1",
+					"output": "trigger"
+				},
+				null,
+				{
+					"index": 2,
+					"inputName": "position",
+					"node": "null1",
+					"output": "out"
+				}
+			]
+		},
+		"constant2": {
+			"type": "constant",
+			"params": {
+				"float": -0.68
+			},
+			"maxInputsCount": 0,
+			"connection_points": {
+				"in": [],
+				"out": [
+					{
+						"name": "val",
+						"type": "float",
+						"isArray": false
+					}
+				]
+			}
+		},
+		"null1": {
+			"type": "null",
+			"params": {
+				"in": {
+					"type": "vector3",
+					"default_value": [0, 0, 0],
+					"options": {
+						"spare": true,
+						"editable": false,
+						"computeOnDirty": true,
+						"dependentOnFoundParam": false
+					}
+				}
+			},
+			"inputs": [
+				{
+					"index": 0,
+					"inputName": "in",
+					"node": "rayIntersectPlane1",
+					"output": "position"
+				}
+			],
+			"connection_points": {
+				"in": [
+					{
+						"name": "in",
+						"type": "Vector3",
+						"isArray": false
+					}
+				],
+				"out": [
+					{
+						"name": "out",
+						"type": "Vector3",
+						"isArray": false
+					}
+				]
+			}
+		},
+		"plane1": {
+			"type": "plane",
+			"params": {
+				"normal": {
+					"raw_input": [0, 0, 1],
+					"overriden_options": {}
+				},
+				"constant": {
+					"overriden_options": {}
+				}
+			},
+			"inputs": [
+				null,
+				{
+					"index": 1,
+					"inputName": "constant",
+					"node": "constant2",
+					"output": "val"
+				}
+			]
+		},
+		"rayFromCursor1": {
+			"type": "rayFromCursor",
+			"params": {
+				"element": 1
+			}
+		},
+		"rayIntersectPlane1": {
+			"type": "rayIntersectPlane",
+			"inputs": [
+				{
+					"index": 0,
+					"inputName": "Ray",
+					"node": "rayFromCursor1",
+					"output": "Ray"
+				},
+				{
+					"index": 1,
+					"inputName": "Plane",
+					"node": "plane1",
+					"output": "Plane"
+				}
+			]
+		},
+		"anyTrigger1": {
+			"type": "anyTrigger",
+			"maxInputsCount": 3,
+			"inputs": [
+				{
+					"index": 0,
+					"inputName": "trigger0",
+					"node": "onTick1",
+					"output": "trigger"
+				},
+				{
+					"index": 1,
+					"inputName": "trigger1",
+					"node": "createClothConstraint1",
+					"output": "trigger"
+				}
+			],
+			"connection_points": {
+				"in": [
+					{
+						"name": "trigger0",
+						"type": "trigger",
+						"isArray": false
+					},
+					{
+						"name": "trigger1",
+						"type": "trigger",
+						"isArray": false
+					},
+					{
+						"name": "trigger2",
+						"type": "trigger",
+						"isArray": false
+					}
+				],
+				"out": [
+					{
+						"name": "trigger",
+						"type": "trigger",
+						"isArray": false
+					}
+				]
+			}
+		},
+		"onPointerup1": {
+			"type": "onPointerup",
+			"params": {
+				"element": 1
+			}
+		},
+		"createClothConstraint1": {
+			"type": "createClothConstraint",
+			"params": {
+				"index": {
+					"overriden_options": {}
+				}
+			},
+			"maxInputsCount": 3,
+			"inputs": [
+				{
+					"index": 0,
+					"inputName": "trigger",
+					"node": "onObjectPointerdown1",
+					"output": "trigger"
+				},
+				null,
+				{
+					"index": 2,
+					"inputName": "index",
+					"node": "GetIntersectionAttribute1",
+					"output": "val"
+				}
+			]
+		},
+		"deleteClothConstraint1": {
+			"type": "deleteClothConstraint",
+			"inputs": [
+				{
+					"index": 0,
+					"inputName": "trigger",
+					"node": "onPointerup1",
+					"output": "trigger"
+				}
+			]
+		}
+	},
+	"inputs": ["clothPrepare1"],
+	"persisted_config": {
+		"variableNames": [
+			"VAR__plane1_normal",
+			"VAR__plane1__1",
+			"VAR__rayIntersectPlane1_",
+			"VAR__null1_in",
+			"VAR__clothSolverSetSelectedVertexPosition1_position"
+		],
+		"variables": [
+			{
+				"type": "Vector3",
+				"data": [0, 0, 0]
+			},
+			{
+				"type": "Plane",
+				"data": {
+					"normal": [1, 0, 0],
+					"constant": 0
+				}
+			},
+			{
+				"type": "Vector3",
+				"data": [0, 0, 0]
+			},
+			{
+				"type": "Vector3",
+				"data": [0, 0, 0]
+			},
+			{
+				"type": "Vector3",
+				"data": [0, 0, 0]
+			}
+		],
+		"functionNames": [
+			"globalsRayFromCursor",
+			"getIntersectionAttributeNumberNearest",
+			"planeSet",
+			"rayIntersectPlane",
+			"globalsTime",
+			"globalsTimeDelta",
+			"addObjectToObjectPointerdownCheck",
+			"addObjectToPointerupCheck",
+			"clothSolverReset",
+			"clothSolverStepSimulation",
+			"clothSolverUpdateMaterial",
+			"clothConstraintSetPosition",
+			"clothCreateConstraint",
+			"clothDeleteConstraint"
+		],
+		"serializedParamConfigs": [],
+		"eventDatas": [
+			{
+				"type": "pointerdown",
+				"emitter": "canvas",
+				"jsType": "onObjectPointerdown"
+			},
+			{
+				"type": "pointermove",
+				"emitter": "document",
+				"jsType": "rayFromCursor"
+			},
+			{
+				"type": "touchmove",
+				"emitter": "document",
+				"jsType": "rayFromCursor"
+			},
+			{
+				"type": "pointerup",
+				"emitter": "document",
+				"jsType": "onPointerup"
+			}
+		]
+	}
+}

@@ -1,16 +1,19 @@
-import { defineConfig } from "vite";
-import { visualizer } from "rollup-plugin-visualizer";
+import {defineConfig} from 'vite';
+import {visualizer} from 'rollup-plugin-visualizer';
 
 // https://vitejs.dev/config/
 export default defineConfig({
-	base: "./",
+	base: './',
 	plugins: [
 		visualizer({
-			template: "treemap", // treemap or sunburst
+			template: 'treemap', // treemap or sunburst
 			open: false,
 			gzipSize: true,
 			brotliSize: true,
-			filename: "analyse.html", // will be saved in project's root
+			filename: 'analyse.html', // will be saved in project's root
 		}),
 	],
+	server: {
+		host: true,
+	},
 });
